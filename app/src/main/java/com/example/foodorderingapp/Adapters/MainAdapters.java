@@ -58,7 +58,7 @@ public class MainAdapters extends RecyclerView.Adapter<MainAdapters.viewHolder>{
 
             foodimage=itemView.findViewById(R.id.imageView);
             mainName=itemView.findViewById(R.id.name);
-            price=itemView.findViewById(R.id.orderPrice);
+            price=itemView.findViewById(R.id.Price);
             description=itemView.findViewById(R.id.description);
 
         }
