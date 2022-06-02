@@ -1,15 +1,19 @@
 package com.example.foodorderingapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodorderingapp.DBHelper;
+import com.example.foodorderingapp.DetailActivity;
 import com.example.foodorderingapp.Models.OrdersModel;
 import com.example.foodorderingapp.R;
 
@@ -40,6 +44,33 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.viewHolder
         holder.soldItemName.setText(model.getSoldItemName());
         holder.orderNumber.setText(model.getOrderNumber());
         holder.price.setText(model.getPrice());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, DetailActivity.class);
+                intent.putExtra("id",Integer.parseInt(model.getOrderNumber()));
+                intent.putExtra("type",2);
+                context.startActivity(intent);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //implement alert dialog
+                DBHelper helper=new DBHelper(context);
+                if(helper.deletedOrder(model.getOrderNumber())>0)
+                {
+                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
 
     }
 
