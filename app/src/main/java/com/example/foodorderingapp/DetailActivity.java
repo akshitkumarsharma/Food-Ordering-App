@@ -111,7 +111,7 @@ public class DetailActivity extends AppCompatActivity {
                             image,
                             binding.detailDescription.getText().toString(),
                             binding.foodName.getText().toString(),
-                            1,
+                            Integer.parseInt(binding.quantity.getText().toString()),
                             id
                     );
 
