@@ -1,6 +1,8 @@
 package com.example.foodorderingapp.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,16 +60,29 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.viewHolder
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                //implement alert dialog
-                DBHelper helper=new DBHelper(context);
-                if(helper.deletedOrder(model.getOrderNumber())>0)
-                {
-                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
-                }
+                new AlertDialog.Builder(context)
+                        .setTitle("Delete item")
+                        .setMessage("Are you sure to delete this item?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DBHelper helper=new DBHelper(context);
+                                if(helper.deletedOrder(model.getOrderNumber()) > 0)
+                                {
+                                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        }).show();
                 return false;
             }
         });

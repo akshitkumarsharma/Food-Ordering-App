@@ -13,6 +13,8 @@ public class DetailActivity extends AppCompatActivity {
 
     ActivityDetailBinding binding;
 
+    int orderQuantity=1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +22,34 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         final DBHelper helper = new DBHelper(this);
+
+
+
+        binding.add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orderQuantity=orderQuantity+1;
+                binding.quantity.setText(orderQuantity+"");
+            }
+        });
+
+        binding.subtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(orderQuantity<2)
+                {
+                    Toast.makeText(DetailActivity.this, "Can't be zero", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    orderQuantity--;
+                    binding.quantity.setText(orderQuantity+"");
+                }
+
+
+            }
+        });
 
         if(getIntent().getIntExtra("type",0)==1) {
 
@@ -66,7 +96,7 @@ public class DetailActivity extends AppCompatActivity {
             binding.detailImage.setImageResource(image);
             binding.priceLb1.setText(String.format("%d", cursor.getInt(3)));
             binding.foodName.setText(cursor.getString(6));
-            binding.detailDescription.setText(cursor.getString(5));
+            binding.detailDescription.setText(cursor.getString(7));
             binding.nameBox.setText(cursor.getString(1));
             binding.phoneBox.setText(cursor.getString(2));
             binding.insertBtn.setText("Update Now");

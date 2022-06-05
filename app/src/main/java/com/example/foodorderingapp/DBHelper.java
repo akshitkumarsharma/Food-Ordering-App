@@ -52,9 +52,9 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("phone",phone);
         values.put("price",price);
         values.put("image",image);
+        values.put("quantity",quantity);
         values.put("description",desc);
         values.put("foodname",foodName);
-        values.put("quantity",quantity);
 
         long id=database.insert("orders",null,values);
 
@@ -73,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         ArrayList<OrdersModel> orders=new ArrayList<>();
         SQLiteDatabase database=this.getWritableDatabase();
-        Cursor cursor=database.rawQuery("Select id, foodname, image, price from orders",null);
+        Cursor cursor=database.rawQuery("Select id, description, image, price from orders",null);
         if(cursor.moveToFirst())
         {
             while (cursor.moveToNext())
@@ -117,17 +117,18 @@ public class DBHelper extends SQLiteOpenHelper {
          phone=2
          price=3
          image=4
-         desc=5
-         foodname=6
-         quantity=7
+         quantity=5
+         desc=6
+         foodname=7
+
          */
         values.put("name",name);
         values.put("phone",phone);
         values.put("price",price);
         values.put("image",image);
+        values.put("quantity",quantity);
         values.put("description",desc);
         values.put("foodname",foodName);
-        values.put("quantity",quantity);
 
         long row=database.update("orders", values,"id="+id,null);
 
